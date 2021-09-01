@@ -1,0 +1,17 @@
+#!/bin/bash
+os=$(hostnamectl)
+
+apt-get install iptables
+apt-get install iptables-persistent
+#systemctl stop firewalld
+#systemctl disable firewalld
+#systemctl mask firewalld
+ yum -y install iptables-services
+
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 636 -j ACCEPT
+
+systemctl enable iptables
+systemctl start iptables
+systemctl status iptables
+iptables -L
